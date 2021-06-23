@@ -8,7 +8,7 @@
     <link href="/2021/06/23/%E5%A4%9A%E7%BB%88%E7%AB%AF%E7%BC%96%E8%BE%91HEXO%E5%8D%9A%E5%AE%A2/"/>
     <url>/2021/06/23/%E5%A4%9A%E7%BB%88%E7%AB%AF%E7%BC%96%E8%BE%91HEXO%E5%8D%9A%E5%AE%A2/</url>
     
-    <content type="html"><![CDATA[<blockquote><p>默认之前已经构建好了<code>HEXO</code>的博客，此博客暂记录在MAC上已经有博客的基础上，通过github分支对源文件进行管理，从而实现多终端编辑更新博客</p></blockquote><h3 id="首先要把源文件同步到github上"><a href="#首先要把源文件同步到github上" class="headerlink" title="首先要把源文件同步到github上"></a>首先要把源文件同步到github上</h3><ul><li>配置<code>.gitignore</code>文件（处于<strong>安全考虑</strong>不同步配置文件<code>_config.yml</code>）</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash">.DS_Store<br>Thumbs.db<br>db.json<br>*.<span class="hljs-built_in">log</span><br>node_modules/<br>public/<br>.deploy*/<br>_config.yml<br></code></pre></td></tr></table></figure><h3 id="Github同步"><a href="#Github同步" class="headerlink" title="Github同步"></a>Github同步</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash">git init <span class="hljs-comment"># 初始化本地仓库</span><br>git add -A <span class="hljs-comment"># 添加本地所有文件到仓库</span><br>git commit -m <span class="hljs-comment"># 添加commit</span><br>git brach hexo <span class="hljs-comment"># 创建本地仓库分支</span><br><span class="hljs-comment"># 关联远端仓库</span><br>git remote add origin git@github.com:HaoqidexiaoWill/UriBoyka2020.github.io.git<br>git push origin hexo <span class="hljs-comment"># 将本地仓库的源文件推送到远程仓库的hexo分支</span><br></code></pre></td></tr></table></figure><h3 id="其他终端同步代码下来"><a href="#其他终端同步代码下来" class="headerlink" title="其他终端同步代码下来"></a>其他终端同步代码下来</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git <span class="hljs-built_in">clone</span> -b hexo git@github.com:HaoqidexiaoWill/UriBoyka2020.github.io.git<br></code></pre></td></tr></table></figure><p><img src="https://yanyandexiaoruantang0828.oss-cn-beijing.aliyuncs.com/img/9UFvAa6GRrIKlbT.png"></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> UriBoyka2020.github.io<br>npm install <br></code></pre></td></tr></table></figure><p>报警似乎不用管</p><blockquote><p>npm WARN notsup SKIPPING OPTIONAL DEPENDENCY: Unsupported platform for <a href="mailto:&#x66;&#115;&#101;&#118;&#x65;&#x6e;&#116;&#x73;&#x40;&#50;&#x2e;&#49;&#46;&#50;">&#x66;&#115;&#101;&#118;&#x65;&#x6e;&#116;&#x73;&#x40;&#50;&#x2e;&#49;&#46;&#50;</a>: wanted {“os”:”darwin”,”arch”:”any”} (current: {“os”:”win32”,”arch”:”x64”})</p></blockquote><h3 id="部署博客"><a href="#部署博客" class="headerlink" title="部署博客"></a>部署博客</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">hexo clean <span class="hljs-comment"># 清除缓存</span><br>hexo g <span class="hljs-comment"># 编译</span><br>hexo s     <span class="hljs-comment"># 本地预览</span><br>hexo d <span class="hljs-comment"># 部署</span><br></code></pre></td></tr></table></figure><p>或者</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">hexo clean &amp;&amp; hexo g &amp;&amp; hexo d<br></code></pre></td></tr></table></figure><h3 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h3><ul><li>本地显示没问题，GithubPages显示异常</li></ul><p><img src="https://yanyandexiaoruantang0828.oss-cn-beijing.aliyuncs.com/img/20210623132941.png"></p><p>这种情况主要是，githubpages的链接一级config.yml配置文件中的路径设置不对</p><p><strong>pages页面设置成如下形式</strong></p><p><img src="https://yanyandexiaoruantang0828.oss-cn-beijing.aliyuncs.com/img/20210623133042.png"></p><p><strong>配置文件设置成如下形式</strong></p><p><img src="https://yanyandexiaoruantang0828.oss-cn-beijing.aliyuncs.com/img/20210623133114.png"></p><p><strong>关联仓库设置成如下</strong></p><p><img src="https://yanyandexiaoruantang0828.oss-cn-beijing.aliyuncs.com/img/20210623133208.png"></p><h3 id="博客美化"><a href="#博客美化" class="headerlink" title="博客美化"></a>博客美化</h3><p><strong>美化之前是这样的</strong></p><p><img src="https://yanyandexiaoruantang0828.oss-cn-beijing.aliyuncs.com/img/20210623133323.png"></p><p>使用了Fluid主题进行美化。相关教程在这里<a href="https://fluid-dev.github.io**/">https://fluid-dev.github.io**/</a>**</p><p><strong>美化之后的结果</strong></p><p><img src="https://yanyandexiaoruantang0828.oss-cn-beijing.aliyuncs.com/img/20210623154449.png"></p>]]></content>
+    <content type="html"><![CDATA[<blockquote><p>默认之前已经构建好了<code>HEXO</code>的博客，此博客暂记录在MAC上已经有博客的基础上，通过github分支对源文件进行管理，从而实现多终端编辑更新博客</p></blockquote><h3 id="首先要把源文件同步到github上"><a href="#首先要把源文件同步到github上" class="headerlink" title="首先要把源文件同步到github上"></a>首先要把源文件同步到github上</h3><ul><li>配置<code>.gitignore</code>文件（处于<strong>安全考虑</strong>不同步配置文件<code>_config.yml</code>）</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash">.DS_Store<br>Thumbs.db<br>db.json<br>*.<span class="hljs-built_in">log</span><br>node_modules/<br>public/<br>.deploy*/<br>_config.yml<br></code></pre></td></tr></table></figure><h3 id="Github同步"><a href="#Github同步" class="headerlink" title="Github同步"></a>Github同步</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash">git init <span class="hljs-comment"># 初始化本地仓库</span><br>git add -A <span class="hljs-comment"># 添加本地所有文件到仓库</span><br>git commit -m <span class="hljs-comment"># 添加commit</span><br>git brach hexo <span class="hljs-comment"># 创建本地仓库分支</span><br><span class="hljs-comment"># 关联远端仓库</span><br>git remote add origin git@github.com:HaoqidexiaoWill/UriBoyka2020.github.io.git<br>git push origin hexo <span class="hljs-comment"># 将本地仓库的源文件推送到远程仓库的hexo分支</span><br></code></pre></td></tr></table></figure><h3 id="其他终端同步代码下来"><a href="#其他终端同步代码下来" class="headerlink" title="其他终端同步代码下来"></a>其他终端同步代码下来</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git <span class="hljs-built_in">clone</span> -b hexo git@github.com:HaoqidexiaoWill/UriBoyka2020.github.io.git<br></code></pre></td></tr></table></figure><p><img src="https://yanyandexiaoruantang0828.oss-cn-beijing.aliyuncs.com/img/9UFvAa6GRrIKlbT.png"></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> UriBoyka2020.github.io<br>npm install <br></code></pre></td></tr></table></figure><p>报警似乎不用管</p><blockquote><p>npm WARN notsup SKIPPING OPTIONAL DEPENDENCY: Unsupported platform for <a href="mailto:&#x66;&#x73;&#x65;&#x76;&#x65;&#x6e;&#x74;&#x73;&#64;&#50;&#x2e;&#49;&#46;&#50;">&#x66;&#x73;&#x65;&#x76;&#x65;&#x6e;&#x74;&#x73;&#64;&#50;&#x2e;&#49;&#46;&#50;</a>: wanted {“os”:”darwin”,”arch”:”any”} (current: {“os”:”win32”,”arch”:”x64”})</p></blockquote><h3 id="部署博客"><a href="#部署博客" class="headerlink" title="部署博客"></a>部署博客</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">hexo clean <span class="hljs-comment"># 清除缓存</span><br>hexo g <span class="hljs-comment"># 编译</span><br>hexo s     <span class="hljs-comment"># 本地预览</span><br>hexo d <span class="hljs-comment"># 部署</span><br></code></pre></td></tr></table></figure><p>或者</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">hexo clean &amp;&amp; hexo g &amp;&amp; hexo d<br></code></pre></td></tr></table></figure><h3 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h3><ul><li>本地显示没问题，GithubPages显示异常</li></ul><p><img src="https://yanyandexiaoruantang0828.oss-cn-beijing.aliyuncs.com/img/20210623132941.png"></p><p>这种情况主要是，githubpages的链接一级config.yml配置文件中的路径设置不对</p><p><strong>pages页面设置成如下形式</strong></p><p><img src="https://yanyandexiaoruantang0828.oss-cn-beijing.aliyuncs.com/img/20210623133042.png"></p><p><strong>配置文件设置成如下形式</strong></p><p><img src="https://yanyandexiaoruantang0828.oss-cn-beijing.aliyuncs.com/img/20210623133114.png"></p><p><strong>关联仓库设置成如下</strong></p><p><img src="https://yanyandexiaoruantang0828.oss-cn-beijing.aliyuncs.com/img/20210623133208.png"></p><h3 id="博客美化"><a href="#博客美化" class="headerlink" title="博客美化"></a>博客美化</h3><p><strong>美化之前是这样的</strong></p><p><img src="https://yanyandexiaoruantang0828.oss-cn-beijing.aliyuncs.com/img/20210623133323.png"></p><p>使用了Fluid主题进行美化。相关教程在这里<a href="https://fluid-dev.github.io**/">https://fluid-dev.github.io**/</a>**</p><p><strong>美化之后的结果</strong></p><p><img src="https://yanyandexiaoruantang0828.oss-cn-beijing.aliyuncs.com/img/20210623154449.png"></p>]]></content>
     
     
     
@@ -61,6 +61,29 @@
   
   
   <entry>
+    <title>层次遍历二叉树2</title>
+    <link href="/2021/06/23/%E5%B1%82%E6%AC%A1%E9%81%8D%E5%8E%86%E4%BA%8C%E5%8F%89%E6%A0%912/"/>
+    <url>/2021/06/23/%E5%B1%82%E6%AC%A1%E9%81%8D%E5%8E%86%E4%BA%8C%E5%8F%89%E6%A0%912/</url>
+    
+    <content type="html"><![CDATA[<p>链接：<a href="https://leetcode-cn.com/problems/cong-shang-dao-xia-da-yin-er-cha-shu-ii-lcof/submissions/">https://leetcode-cn.com/problems/cong-shang-dao-xia-da-yin-er-cha-shu-ii-lcof/submissions/</a></p><p>思路：</p><ul><li>无</li></ul><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># Definition for a binary tree node.</span><br><span class="hljs-comment"># class TreeNode:</span><br><span class="hljs-comment">#     def __init__(self, x):</span><br><span class="hljs-comment">#         self.val = x</span><br><span class="hljs-comment">#         self.left = None</span><br><span class="hljs-comment">#         self.right = None</span><br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span>:</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">levelOrder</span>(<span class="hljs-params">self, root: TreeNode</span>) -&gt; <span class="hljs-type">List</span>[<span class="hljs-type">List</span>[<span class="hljs-built_in">int</span>]]:</span><br>        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> root: <span class="hljs-keyword">return</span> []<br>        result,nodes = [],[root]<br>        <span class="hljs-keyword">while</span>(nodes):<br>            curStack,nextStack = [],[]<br>            <span class="hljs-keyword">for</span> node <span class="hljs-keyword">in</span> nodes:<br>                curStack.append(node.val)<br>                <span class="hljs-keyword">if</span> node.left:<br>                    nextStack.append(node.left)<br>                <span class="hljs-keyword">if</span> node.right:<br>                    nextStack.append(node.right)<br>            result.append(curStack)<br>            nodes = nextStack<br>        <span class="hljs-keyword">return</span> result<br><br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>Python刷题</tag>
+      
+      <tag>BinaryTree</tag>
+      
+      <tag>Easy</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>反转二叉树</title>
     <link href="/2021/06/23/%E5%8F%8D%E8%BD%AC%E4%BA%8C%E5%8F%89%E6%A0%91/"/>
     <url>/2021/06/23/%E5%8F%8D%E8%BD%AC%E4%BA%8C%E5%8F%89%E6%A0%91/</url>
@@ -72,6 +95,44 @@
     <tags>
       
       <tag>刷题，acwing</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>多终端编辑HEXO博客</title>
+    <link href="/2021/06/23/Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/"/>
+    <url>/2021/06/23/Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</url>
+    
+    <content type="html"><![CDATA[<p><strong>SCP 远程拷贝：</strong>scp + 本地目录 + 远程服务器目标地址</p><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">scp -r DATA<span class="hljs-regexp">/ liusongyan.2020@10.22.145.137:/</span>data00<span class="hljs-regexp">/home/</span>liusongyan.<span class="hljs-number">2020</span><span class="hljs-regexp">/workspace/</span>dingpan_extraction<span class="hljs-regexp">/entity_mine/</span>RelationExtraction/<br></code></pre></td></tr></table></figure><p><strong>后台运行：</strong></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">CUDA_VISIBLE_DEVICES=3 nohup python main2.py&gt; ./train0421.log 2&gt;&amp;1 &amp;<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>Linux学习</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>python常用脚本</title>
+    <link href="/2021/06/23/Python%E5%B8%B8%E7%94%A8%E8%84%9A%E6%9C%AC/"/>
+    <url>/2021/06/23/Python%E5%B8%B8%E7%94%A8%E8%84%9A%E6%9C%AC/</url>
+    
+    <content type="html"><![CDATA[<p><strong>Python3 按行读JSON:</strong></p><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs stata">SQL_PATH = &#x27;xxx.json&#x27;<br>sql_data = []<br>with <span class="hljs-keyword">open</span>(SQL_PATH, encoding=&#x27;utf-8&#x27;) <span class="hljs-keyword">as</span> <span class="hljs-keyword">inf</span>:<br>    <span class="hljs-keyword">for</span> idx, <span class="hljs-keyword">line</span> <span class="hljs-keyword">in</span> enumerate(<span class="hljs-keyword">inf</span>):<br>        sql = json.loads(<span class="hljs-keyword">line</span>.strip())<br>        <span class="hljs-keyword">if</span> use_small and idx &gt;= 1000:<br>            <span class="hljs-keyword">break</span><br>        sql_data.<span class="hljs-keyword">append</span>(sql)<br><br></code></pre></td></tr></table></figure><p><strong>Python3 按行写JSON：</strong></p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy<br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">NumpyEncoder</span>(<span class="hljs-params">json.JSONEncoder</span>):</span><br>    <span class="hljs-string">&quot;&quot;&quot; Special json encoder for numpy types &quot;&quot;&quot;</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">default</span>(<span class="hljs-params">self, obj</span>):</span><br>        <span class="hljs-keyword">if</span> <span class="hljs-built_in">isinstance</span>(obj, (numpy.int_, numpy.intc, numpy.intp, numpy.int8,<br>                            numpy.int16, numpy.int32, numpy.int64, numpy.uint8,<br>                            numpy.uint16, numpy.uint32, numpy.uint64)):<br>            <span class="hljs-keyword">return</span> <span class="hljs-built_in">int</span>(obj)<br>        <span class="hljs-keyword">elif</span> <span class="hljs-built_in">isinstance</span>(obj, (numpy.float_, numpy.float16, numpy.float32,<br>                              numpy.float64)):<br>            <span class="hljs-keyword">return</span> <span class="hljs-built_in">float</span>(obj)<br>        <span class="hljs-keyword">elif</span> <span class="hljs-built_in">isinstance</span>(obj, (numpy.ndarray,)):<br>            <span class="hljs-keyword">return</span> obj.tolist()<br>        <span class="hljs-keyword">return</span> json.JSONEncoder.default(self, obj)<br><br>    <br>fw = <span class="hljs-built_in">open</span>(output_path,<span class="hljs-string">&#x27;a&#x27;</span>, encoding=<span class="hljs-string">&#x27;utf-8&#x27;</span>)<br><span class="hljs-keyword">for</span> sql_pred <span class="hljs-keyword">in</span> sql_preds:<br>    json.dump(sql_pred,fw,ensure_ascii=<span class="hljs-literal">False</span>,cls = NumpyEncoder)<br>    fw.writelines(<span class="hljs-string">&#x27;\n&#x27;</span>)<br>fw.close()<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>Python学习</tag>
       
     </tags>
     
@@ -99,13 +160,61 @@
   
   
   <entry>
-    <title></title>
+    <title>ZigZag层次遍历二叉树</title>
+    <link href="/2021/06/23/ZigZag%E5%B1%82%E6%AC%A1%E9%81%8D%E5%8E%86%E4%BA%8C%E5%8F%89%E6%A0%91/"/>
+    <url>/2021/06/23/ZigZag%E5%B1%82%E6%AC%A1%E9%81%8D%E5%8E%86%E4%BA%8C%E5%8F%89%E6%A0%91/</url>
+    
+    <content type="html"><![CDATA[<p>链接：<a href="https://leetcode-cn.com/problems/cong-shang-dao-xia-da-yin-er-cha-shu-iii-lcof/">https://leetcode-cn.com/problems/cong-shang-dao-xia-da-yin-er-cha-shu-iii-lcof/</a></p><p>思路：</p><ul><li>搞一个flag 记录一下</li></ul><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># Definition for a binary tree node.</span><br><span class="hljs-comment"># class TreeNode:</span><br><span class="hljs-comment">#     def __init__(self, x):</span><br><span class="hljs-comment">#         self.val = x</span><br><span class="hljs-comment">#         self.left = None</span><br><span class="hljs-comment">#         self.right = None</span><br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span>:</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">levelOrder</span>(<span class="hljs-params">self, root: TreeNode</span>) -&gt; <span class="hljs-type">List</span>[<span class="hljs-type">List</span>[<span class="hljs-built_in">int</span>]]:</span><br>        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> root: <span class="hljs-keyword">return</span> <span class="hljs-literal">None</span><br>        results,nodes = [],[root]<br>        flag = <span class="hljs-number">0</span><br>        <span class="hljs-keyword">while</span>(nodes):<br>            curStack,nextStack = [],[]<br>            <span class="hljs-keyword">for</span> node <span class="hljs-keyword">in</span> nodes:<br>                curStack.append(node.val)<br>                <span class="hljs-keyword">if</span> node.left:<br>                    nextStack.append(node.left)<br>                <span class="hljs-keyword">if</span> node.right:<br>                    nextStack.append(node.right)<br>            <span class="hljs-keyword">if</span> flag%<span class="hljs-number">2</span> ==<span class="hljs-number">1</span>:<br>                curStack = curStack[::-<span class="hljs-number">1</span>]<br>            flag+=<span class="hljs-number">1</span><br>            results.append(curStack)<br>            nodes = nextStack<br>        <span class="hljs-keyword">return</span> results<br><br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>Python刷题</tag>
+      
+      <tag>BinaryTree</tag>
+      
+      <tag>Easy</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>conda配置tensorflow2</title>
+    <link href="/2021/06/23/conda%E9%85%8D%E7%BD%AEtensorflow2/"/>
+    <url>/2021/06/23/conda%E9%85%8D%E7%BD%AEtensorflow2/</url>
+    
+    <content type="html"><![CDATA[<h2 id="Conda环境安装"><a href="#Conda环境安装" class="headerlink" title="Conda环境安装"></a>Conda环境安装</h2><p>首先wget 下载conda 的bash 脚本：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">wget https://mirrors.tuna.tsinghua.edu.cn/anaconda/archive/Anaconda3-2020.02-Linux-x86_64.sh<br></code></pre></td></tr></table></figure><p>得到<code>Anaconda3-2020.02-Linux-x86_64.sh</code> bash文件以后，使用bash 命令编译他：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">bash Anaconda3-2020.02-Linux-x86_64.sh<br></code></pre></td></tr></table></figure><p>接下来一顿回车，记得把anconda3 安装在自己的根目录下即可</p><p>如果shell命令下没有source命令的话</p><p>![](<a href="https://raw.githubusercontent.com/UriBoyka2020">https://raw.githubusercontent.com/UriBoyka2020</a> /Picture/master/file2/20200420233303.png)</p><p>就把source换成bash</p><p>![](<a href="https://raw.githubusercontent.com/UriBoyka2020">https://raw.githubusercontent.com/UriBoyka2020</a> /Picture/master/file2/20200420233618.png)</p><p>然后配置环境变量，并编译,如果rc文件不存在的话先touch 一下</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">export</span> PATH=<span class="hljs-string">&quot;/data00/home/songyan.liu2020/anaconda3/bin:<span class="hljs-variable">$PATH</span>&quot;</span><br>touch ~/.bash.rc<br><span class="hljs-built_in">source</span>  ~/.bash.rc<br></code></pre></td></tr></table></figure><p>最后<code>conda list</code>检查一下，没问题的话，conda的环境就安装成功了</p><h2 id="安装tensorflow2"><a href="#安装tensorflow2" class="headerlink" title="安装tensorflow2"></a>安装tensorflow2</h2><p>创建虚拟环境</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">conda create -n conda-gpu python=3.7<br></code></pre></td></tr></table></figure><p>创建好了以后切到对应的conda 虚拟环境中</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">conda activate xxx<br></code></pre></td></tr></table></figure><p>这个时候再pip是默认安装在conda的环境中</p><p>几个不同的pip的源：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">pip install tensorflow-gpu==2  -i https://mirrors.aliyun.com/pypi/simple/<br>pip install tensorflow --index-url=http://pypi.byted.org/simple/pypi/+simple --trusted-host=pypi.byted.org<br>pip install tensorflow-gpu==1.12.0 -i  https://pypi.tuna.tsinghua.edu.cn/simple<br></code></pre></td></tr></table></figure><p>到这步基本tensorflow就安装完成</p><p>但是我在调用的时候会报错误：模型只能跑在CPU上，GPU空转</p><p>![](<a href="https://raw.githubusercontent.com/UriBoyka2020">https://raw.githubusercontent.com/UriBoyka2020</a> /Picture/master/file2/20200420234804.png)</p><p>这个时候需要加入对应的库的路径：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">export</span> LD_LIBRARY_PATH=/usr/<span class="hljs-built_in">local</span>/cuda/lib64:/usr/<span class="hljs-built_in">local</span>/lib/:<span class="hljs-variable">$LD_LIBRARY_PATH</span><br><span class="hljs-built_in">export</span> CUDA_HOME=/usr/<span class="hljs-built_in">local</span>/cuda<br><span class="hljs-built_in">export</span> OPENMPI_HOME=/usr/<span class="hljs-built_in">local</span>/openmpi<br><span class="hljs-built_in">export</span> PATH=<span class="hljs-variable">$CUDA_HOME</span>/bin:<span class="hljs-variable">$OPENMPI_HOME</span>/bin:<span class="hljs-variable">$PATH</span><br><span class="hljs-built_in">export</span> LD_LIBRARY_PATH=<span class="hljs-variable">$OPENMPI_HOME</span>/lib/:<span class="hljs-variable">$LD_LIBRARY_PATH</span><br></code></pre></td></tr></table></figure><p>然后tensorflow 可以正常跑了</p><p>![](<a href="https://raw.githubusercontent.com/UriBoyka2020">https://raw.githubusercontent.com/UriBoyka2020</a> /Picture/master/file2/20200420235029.png)</p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>Linux学习</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Conda与Pip以及Tmux常用命令</title>
     <link href="/2021/06/23/Conda%E4%B8%8EPip%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/"/>
     <url>/2021/06/23/Conda%E4%B8%8EPip%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</url>
     
     <content type="html"><![CDATA[<h2 id="Conda与Pip以及Tmux常用命令"><a href="#Conda与Pip以及Tmux常用命令" class="headerlink" title="Conda与Pip以及Tmux常用命令"></a>Conda与Pip以及Tmux常用命令</h2><ul><li>查看conda版本</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">conda --version<br></code></pre></td></tr></table></figure><ul><li>查看当前存在哪些conda环境</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">conda env list<br></code></pre></td></tr></table></figure><ul><li>检查更新当前conda</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">conda create -n your_env_name python=3.7<br></code></pre></td></tr></table></figure>]]></content>
     
     
+    
+    <tags>
+      
+      <tag>Linux学习</tag>
+      
+    </tags>
     
   </entry>
   
@@ -131,57 +240,11 @@
   
   
   <entry>
-    <title>ZigZag层次遍历二叉树</title>
-    <link href="/2020/10/19/ZigZag%E5%B1%82%E6%AC%A1%E9%81%8D%E5%8E%86%E4%BA%8C%E5%8F%89%E6%A0%91/"/>
-    <url>/2020/10/19/ZigZag%E5%B1%82%E6%AC%A1%E9%81%8D%E5%8E%86%E4%BA%8C%E5%8F%89%E6%A0%91/</url>
-    
-    <content type="html"><![CDATA[<p>链接：<a href="https://leetcode-cn.com/problems/cong-shang-dao-xia-da-yin-er-cha-shu-iii-lcof/">https://leetcode-cn.com/problems/cong-shang-dao-xia-da-yin-er-cha-shu-iii-lcof/</a></p><p>思路：</p><ul><li>搞一个flag 记录一下</li></ul><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># Definition for a binary tree node.</span><br><span class="hljs-comment"># class TreeNode:</span><br><span class="hljs-comment">#     def __init__(self, x):</span><br><span class="hljs-comment">#         self.val = x</span><br><span class="hljs-comment">#         self.left = None</span><br><span class="hljs-comment">#         self.right = None</span><br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span>:</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">levelOrder</span>(<span class="hljs-params">self, root: TreeNode</span>) -&gt; <span class="hljs-type">List</span>[<span class="hljs-type">List</span>[<span class="hljs-built_in">int</span>]]:</span><br>        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> root: <span class="hljs-keyword">return</span> <span class="hljs-literal">None</span><br>        results,nodes = [],[root]<br>        flag = <span class="hljs-number">0</span><br>        <span class="hljs-keyword">while</span>(nodes):<br>            curStack,nextStack = [],[]<br>            <span class="hljs-keyword">for</span> node <span class="hljs-keyword">in</span> nodes:<br>                curStack.append(node.val)<br>                <span class="hljs-keyword">if</span> node.left:<br>                    nextStack.append(node.left)<br>                <span class="hljs-keyword">if</span> node.right:<br>                    nextStack.append(node.right)<br>            <span class="hljs-keyword">if</span> flag%<span class="hljs-number">2</span> ==<span class="hljs-number">1</span>:<br>                curStack = curStack[::-<span class="hljs-number">1</span>]<br>            flag+=<span class="hljs-number">1</span><br>            results.append(curStack)<br>            nodes = nextStack<br>        <span class="hljs-keyword">return</span> results<br><br></code></pre></td></tr></table></figure>]]></content>
-    
-    
-    
-    <tags>
-      
-      <tag>Python刷题</tag>
-      
-      <tag>BinaryTree</tag>
-      
-      <tag>Easy</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
     <title>层次遍历二叉树1</title>
     <link href="/2020/10/19/%E5%B1%82%E6%AC%A1%E9%81%8D%E5%8E%86%E4%BA%8C%E5%8F%89%E6%A0%91/"/>
     <url>/2020/10/19/%E5%B1%82%E6%AC%A1%E9%81%8D%E5%8E%86%E4%BA%8C%E5%8F%89%E6%A0%91/</url>
     
     <content type="html"><![CDATA[<p>链接：<a href="https://leetcode-cn.com/problems/cong-shang-dao-xia-da-yin-er-cha-shu-lcof/submissions/">https://leetcode-cn.com/problems/cong-shang-dao-xia-da-yin-er-cha-shu-lcof/submissions/</a></p><p>思路：无</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># Definition for a binary tree node.</span><br><span class="hljs-comment"># class TreeNode:</span><br><span class="hljs-comment">#     def __init__(self, x):</span><br><span class="hljs-comment">#         self.val = x</span><br><span class="hljs-comment">#         self.left = None</span><br><span class="hljs-comment">#         self.right = None</span><br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span>:</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">levelOrder</span>(<span class="hljs-params">self, root: TreeNode</span>) -&gt; <span class="hljs-type">List</span>[<span class="hljs-built_in">int</span>]:</span><br>        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> root : <span class="hljs-keyword">return</span> []<br>        results,nodes = [],[root]<br>        <span class="hljs-keyword">while</span> nodes:<br>            curStack,nextStack = [],[]<br>            <span class="hljs-keyword">for</span> node <span class="hljs-keyword">in</span> nodes:<br>                curStack.append(node.val)<br>                <span class="hljs-keyword">if</span> node.left:<br>                    nextStack.append(node.left)<br>                <span class="hljs-keyword">if</span> node.right:<br>                    nextStack.append(node.right)<br>            results+=curStack<br>            nodes = nextStack<br>        <span class="hljs-keyword">return</span> results<br><br></code></pre></td></tr></table></figure>]]></content>
-    
-    
-    
-    <tags>
-      
-      <tag>Python刷题</tag>
-      
-      <tag>BinaryTree</tag>
-      
-      <tag>Easy</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>层次遍历二叉树2</title>
-    <link href="/2020/10/19/%E5%B1%82%E6%AC%A1%E9%81%8D%E5%8E%86%E4%BA%8C%E5%8F%89%E6%A0%912/"/>
-    <url>/2020/10/19/%E5%B1%82%E6%AC%A1%E9%81%8D%E5%8E%86%E4%BA%8C%E5%8F%89%E6%A0%912/</url>
-    
-    <content type="html"><![CDATA[<p>链接：<a href="https://leetcode-cn.com/problems/cong-shang-dao-xia-da-yin-er-cha-shu-ii-lcof/submissions/">https://leetcode-cn.com/problems/cong-shang-dao-xia-da-yin-er-cha-shu-ii-lcof/submissions/</a></p><p>思路：</p><ul><li>无</li></ul><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># Definition for a binary tree node.</span><br><span class="hljs-comment"># class TreeNode:</span><br><span class="hljs-comment">#     def __init__(self, x):</span><br><span class="hljs-comment">#         self.val = x</span><br><span class="hljs-comment">#         self.left = None</span><br><span class="hljs-comment">#         self.right = None</span><br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span>:</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">levelOrder</span>(<span class="hljs-params">self, root: TreeNode</span>) -&gt; <span class="hljs-type">List</span>[<span class="hljs-type">List</span>[<span class="hljs-built_in">int</span>]]:</span><br>        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> root: <span class="hljs-keyword">return</span> []<br>        result,nodes = [],[root]<br>        <span class="hljs-keyword">while</span>(nodes):<br>            curStack,nextStack = [],[]<br>            <span class="hljs-keyword">for</span> node <span class="hljs-keyword">in</span> nodes:<br>                curStack.append(node.val)<br>                <span class="hljs-keyword">if</span> node.left:<br>                    nextStack.append(node.left)<br>                <span class="hljs-keyword">if</span> node.right:<br>                    nextStack.append(node.right)<br>            result.append(curStack)<br>            nodes = nextStack<br>        <span class="hljs-keyword">return</span> result<br><br></code></pre></td></tr></table></figure>]]></content>
     
     
     
@@ -556,63 +619,6 @@
     <tags>
       
       <tag>python刷题</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>Python常用脚本</title>
-    <link href="/2020/04/21/Python%E5%B8%B8%E7%94%A8%E8%84%9A%E6%9C%AC/"/>
-    <url>/2020/04/21/Python%E5%B8%B8%E7%94%A8%E8%84%9A%E6%9C%AC/</url>
-    
-    <content type="html"><![CDATA[<p><strong>Python3 按行读JSON:</strong></p><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs stata">SQL_PATH = &#x27;xxx.json&#x27;<br>sql_data = []<br>with <span class="hljs-keyword">open</span>(SQL_PATH, encoding=&#x27;utf-8&#x27;) <span class="hljs-keyword">as</span> <span class="hljs-keyword">inf</span>:<br>    <span class="hljs-keyword">for</span> idx, <span class="hljs-keyword">line</span> <span class="hljs-keyword">in</span> enumerate(<span class="hljs-keyword">inf</span>):<br>        sql = json.loads(<span class="hljs-keyword">line</span>.strip())<br>        <span class="hljs-keyword">if</span> use_small and idx &gt;= 1000:<br>            <span class="hljs-keyword">break</span><br>        sql_data.<span class="hljs-keyword">append</span>(sql)<br><br></code></pre></td></tr></table></figure><p><strong>Python3 按行写JSON：</strong></p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy<br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">NumpyEncoder</span>(<span class="hljs-params">json.JSONEncoder</span>):</span><br>    <span class="hljs-string">&quot;&quot;&quot; Special json encoder for numpy types &quot;&quot;&quot;</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">default</span>(<span class="hljs-params">self, obj</span>):</span><br>        <span class="hljs-keyword">if</span> <span class="hljs-built_in">isinstance</span>(obj, (numpy.int_, numpy.intc, numpy.intp, numpy.int8,<br>                            numpy.int16, numpy.int32, numpy.int64, numpy.uint8,<br>                            numpy.uint16, numpy.uint32, numpy.uint64)):<br>            <span class="hljs-keyword">return</span> <span class="hljs-built_in">int</span>(obj)<br>        <span class="hljs-keyword">elif</span> <span class="hljs-built_in">isinstance</span>(obj, (numpy.float_, numpy.float16, numpy.float32,<br>                              numpy.float64)):<br>            <span class="hljs-keyword">return</span> <span class="hljs-built_in">float</span>(obj)<br>        <span class="hljs-keyword">elif</span> <span class="hljs-built_in">isinstance</span>(obj, (numpy.ndarray,)):<br>            <span class="hljs-keyword">return</span> obj.tolist()<br>        <span class="hljs-keyword">return</span> json.JSONEncoder.default(self, obj)<br><br>    <br>fw = <span class="hljs-built_in">open</span>(output_path,<span class="hljs-string">&#x27;a&#x27;</span>, encoding=<span class="hljs-string">&#x27;utf-8&#x27;</span>)<br><span class="hljs-keyword">for</span> sql_pred <span class="hljs-keyword">in</span> sql_preds:<br>    json.dump(sql_pred,fw,ensure_ascii=<span class="hljs-literal">False</span>,cls = NumpyEncoder)<br>    fw.writelines(<span class="hljs-string">&#x27;\n&#x27;</span>)<br>fw.close()<br></code></pre></td></tr></table></figure>]]></content>
-    
-    
-    
-    <tags>
-      
-      <tag>JSON读写</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>Linux常用命令</title>
-    <link href="/2020/04/21/Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/"/>
-    <url>/2020/04/21/Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</url>
-    
-    <content type="html"><![CDATA[<p><strong>SCP 远程拷贝：</strong>scp + 本地目录 + 远程服务器目标地址</p><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">scp -r DATA<span class="hljs-regexp">/ liusongyan.2020@10.22.145.137:/</span>data00<span class="hljs-regexp">/home/</span>liusongyan.<span class="hljs-number">2020</span><span class="hljs-regexp">/workspace/</span>dingpan_extraction<span class="hljs-regexp">/entity_mine/</span>RelationExtraction/<br></code></pre></td></tr></table></figure><p><strong>后台运行：</strong></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">CUDA_VISIBLE_DEVICES=3 nohup python main2.py&gt; ./train0421.log 2&gt;&amp;1 &amp;<br></code></pre></td></tr></table></figure>]]></content>
-    
-    
-    
-    <tags>
-      
-      <tag>Linux 常用命令</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>conda配置tensorflow2</title>
-    <link href="/2020/04/20/conda%E9%85%8D%E7%BD%AEtensorflow2/"/>
-    <url>/2020/04/20/conda%E9%85%8D%E7%BD%AEtensorflow2/</url>
-    
-    <content type="html"><![CDATA[<h2 id="Conda环境安装"><a href="#Conda环境安装" class="headerlink" title="Conda环境安装"></a>Conda环境安装</h2><p>首先wget 下载conda 的bash 脚本：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">wget https://mirrors.tuna.tsinghua.edu.cn/anaconda/archive/Anaconda3-2020.02-Linux-x86_64.sh<br></code></pre></td></tr></table></figure><p>得到<code>Anaconda3-2020.02-Linux-x86_64.sh</code> bash文件以后，使用bash 命令编译他：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">bash Anaconda3-2020.02-Linux-x86_64.sh<br></code></pre></td></tr></table></figure><p>接下来一顿回车，记得把anconda3 安装在自己的根目录下即可</p><p>如果shell命令下没有source命令的话</p><p>![](<a href="https://raw.githubusercontent.com/UriBoyka2020">https://raw.githubusercontent.com/UriBoyka2020</a> /Picture/master/file2/20200420233303.png)</p><p>就把source换成bash</p><p>![](<a href="https://raw.githubusercontent.com/UriBoyka2020">https://raw.githubusercontent.com/UriBoyka2020</a> /Picture/master/file2/20200420233618.png)</p><p>然后配置环境变量，并编译,如果rc文件不存在的话先touch 一下</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">export</span> PATH=<span class="hljs-string">&quot;/data00/home/songyan.liu2020/anaconda3/bin:<span class="hljs-variable">$PATH</span>&quot;</span><br>touch ~/.bash.rc<br><span class="hljs-built_in">source</span>  ~/.bash.rc<br></code></pre></td></tr></table></figure><p>最后<code>conda list</code>检查一下，没问题的话，conda的环境就安装成功了</p><h2 id="安装tensorflow2"><a href="#安装tensorflow2" class="headerlink" title="安装tensorflow2"></a>安装tensorflow2</h2><p>创建虚拟环境</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">conda create -n conda-gpu python=3.7<br></code></pre></td></tr></table></figure><p>创建好了以后切到对应的conda 虚拟环境中</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">conda activate xxx<br></code></pre></td></tr></table></figure><p>这个时候再pip是默认安装在conda的环境中</p><p>几个不同的pip的源：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">pip install tensorflow-gpu==2  -i https://mirrors.aliyun.com/pypi/simple/<br>pip install tensorflow --index-url=http://pypi.byted.org/simple/pypi/+simple --trusted-host=pypi.byted.org<br>pip install tensorflow-gpu==1.12.0 -i  https://pypi.tuna.tsinghua.edu.cn/simple<br></code></pre></td></tr></table></figure><p>到这步基本tensorflow就安装完成</p><p>但是我在调用的时候会报错误：模型只能跑在CPU上，GPU空转</p><p>![](<a href="https://raw.githubusercontent.com/UriBoyka2020">https://raw.githubusercontent.com/UriBoyka2020</a> /Picture/master/file2/20200420234804.png)</p><p>这个时候需要加入对应的库的路径：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">export</span> LD_LIBRARY_PATH=/usr/<span class="hljs-built_in">local</span>/cuda/lib64:/usr/<span class="hljs-built_in">local</span>/lib/:<span class="hljs-variable">$LD_LIBRARY_PATH</span><br><span class="hljs-built_in">export</span> CUDA_HOME=/usr/<span class="hljs-built_in">local</span>/cuda<br><span class="hljs-built_in">export</span> OPENMPI_HOME=/usr/<span class="hljs-built_in">local</span>/openmpi<br><span class="hljs-built_in">export</span> PATH=<span class="hljs-variable">$CUDA_HOME</span>/bin:<span class="hljs-variable">$OPENMPI_HOME</span>/bin:<span class="hljs-variable">$PATH</span><br><span class="hljs-built_in">export</span> LD_LIBRARY_PATH=<span class="hljs-variable">$OPENMPI_HOME</span>/lib/:<span class="hljs-variable">$LD_LIBRARY_PATH</span><br></code></pre></td></tr></table></figure><p>然后tensorflow 可以正常跑了</p><p>![](<a href="https://raw.githubusercontent.com/UriBoyka2020">https://raw.githubusercontent.com/UriBoyka2020</a> /Picture/master/file2/20200420235029.png)</p>]]></content>
-    
-    
-    
-    <tags>
-      
-      <tag>环境配置</tag>
       
     </tags>
     
