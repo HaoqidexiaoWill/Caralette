@@ -190,7 +190,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      367 字
+      368 字
     </span>
   
 
@@ -250,7 +250,7 @@
               <blockquote>
 <p>默认之前已经构建好了<code>HEXO</code>的博客，此博客暂记录在MAC上已经有博客的基础上，通过github分支对源文件进行管理，从而实现多终端编辑更新博客</p>
 </blockquote>
-<h3 id="首先要把源文件同步到github"><a href="#首先要把源文件同步到github" class="headerlink" title="首先要把源文件同步到github"></a>首先要把源文件同步到github</h3><ul>
+<h3 id="首先要把源文件同步到github上"><a href="#首先要把源文件同步到github上" class="headerlink" title="首先要把源文件同步到github上"></a>首先要把源文件同步到github上</h3><ul>
 <li>配置<code>.gitignore</code>文件（处于<strong>安全考虑</strong>不同步配置文件<code>_config.yml</code>）</li>
 </ul>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash">.DS_Store<br>Thumbs.db<br>db.json<br>*.<span class="hljs-built_in">log</span><br>node_modules/<br>public/<br>.deploy*/<br>_config.yml<br></code></pre></td></tr></table></figure>
@@ -264,7 +264,7 @@
 
 <p>报警似乎不用管</p>
 <blockquote>
-<p>npm WARN notsup SKIPPING OPTIONAL DEPENDENCY: Unsupported platform for <a href="mailto:&#x66;&#x73;&#101;&#x76;&#x65;&#110;&#116;&#115;&#x40;&#50;&#46;&#49;&#46;&#x32;">&#x66;&#x73;&#101;&#x76;&#x65;&#110;&#116;&#115;&#x40;&#50;&#46;&#49;&#46;&#x32;</a>: wanted {“os”:”darwin”,”arch”:”any”} (current: {“os”:”win32”,”arch”:”x64”})</p>
+<p>npm WARN notsup SKIPPING OPTIONAL DEPENDENCY: Unsupported platform for <a href="mailto:&#x66;&#115;&#x65;&#x76;&#101;&#110;&#116;&#115;&#64;&#x32;&#x2e;&#x31;&#x2e;&#x32;">&#x66;&#115;&#x65;&#x76;&#101;&#110;&#116;&#115;&#64;&#x32;&#x2e;&#x31;&#x2e;&#x32;</a>: wanted {“os”:”darwin”,”arch”:”any”} (current: {“os”:”win32”,”arch”:”x64”})</p>
 </blockquote>
 <h3 id="部署博客"><a href="#部署博客" class="headerlink" title="部署博客"></a>部署博客</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">hexo clean 		<span class="hljs-comment"># 清除缓存</span><br>hexo g 			<span class="hljs-comment"># 编译</span><br>hexo s     		<span class="hljs-comment"># 本地预览</span><br>hexo d 			<span class="hljs-comment"># 部署</span><br></code></pre></td></tr></table></figure>
 
