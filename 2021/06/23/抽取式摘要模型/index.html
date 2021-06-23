@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="抽取式摘要模型 从source 中选择合适的句子作为摘要的模型，要求被选择的句子同时满足两个要求  包含原文中重要的信息，并且在逻辑上保持一致 具备最低的冗余性   如何衡量摘要于包含原文重要信息，以及如何判断是否是最低的冗余性   抽取式摘要通常被视为sequence labeling task ， decoder 沿着文档挨个句子进行二分类，在每一步解码的时候综合  当前句子的语义信息 上一步">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/2021/06/23/%E6%8A%BD%E5%8F%96%E5%BC%8F%E6%91%98%E8%A6%81%E6%A8%A1%E5%9E%8B/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="抽取式摘要模型 从source 中选择合适的句子作为摘要的模型，要求被选择的句子同时满足两个要求  包含原文中重要的信息，并且在逻辑上保持一致 具备最低的冗余性   如何衡量摘要于包含原文重要信息，以及如何判断是否是最低的冗余性   抽取式摘要通常被视为sequence labeling task ， decoder 沿着文档挨个句子进行二分类，在每一步解码的时候综合  当前句子的语义信息 上一步">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-06-23T03:29:33.277Z">
+<meta property="article:modified_time" content="2021-06-23T03:29:33.277Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-抽取式摘要模型" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/06/23/%E6%8A%BD%E5%8F%96%E5%BC%8F%E6%91%98%E8%A6%81%E6%A8%A1%E5%9E%8B/" class="article-date">
+  <time datetime="2021-06-23T03:29:33.277Z" itemprop="datePublished">2021-06-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="抽取式摘要模型"><a href="#抽取式摘要模型" class="headerlink" title="抽取式摘要模型"></a>抽取式摘要模型</h2><ul>
+<li><p>从source 中选择合适的句子作为摘要的模型，要求被选择的句子同时满足两个要求</p>
+<ul>
+<li>包含原文中重要的信息，并且在逻辑上保持一致</li>
+<li>具备最低的冗余性</li>
+</ul>
+<blockquote>
+<p>如何衡量摘要于包含原文重要信息，以及如何判断是否是最低的冗余性</p>
+</blockquote>
+</li>
+<li><p>抽取式摘要通常被视为sequence labeling task ， decoder 沿着文档挨个句子进行二分类，在每一步解码的时候综合</p>
+<ul>
+<li>当前句子的语义信息</li>
+<li>上一步的解码状态</li>
+<li>文档的全局语义信息判断当前的句子是否应该被选择作为摘要</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>是否是当前主流做法/未来发展方向，如果不是的话有什么弊端？</p>
+</blockquote>
+<ul>
+<li><p>摘要现状：T5/Pegasus 为基础的生成式摘要模型表现超过了抽取式摘要SOTA的结果</p>
+</li>
+<li><p>2016年<a target="_blank" rel="noopener" href="https://www.aclweb.org/anthology/P16-1046.pdf">文献1</a>首次提出将LSTM作为decoder，每一步解码的输入是上一步句子的sentence embedding ，输出的隐藏状态经过线性层和sigmoid 进行二分类，用来预测当前句子属于摘要句子的概率，之后的LSTM/GRU 成为了主流的decoder模型，后续基于decoder 侧的改进主要集中于：</p>
+<ul>
+<li>Hidden-state 在送入classifier 之前，应该与哪些模块/语义单元进行更有效的信息沟通</li>
+</ul>
+<blockquote>
+<p>Char/word/sentence/para 级别 进行attention交互？</p>
+</blockquote>
+<ul>
+<li>如何更有效的信息沟通/交互</li>
+</ul>
+<blockquote>
+<p>借鉴FusionNet或者CSRAN网络 的融合方式？</p>
+</blockquote>
+</li>
+</ul>
+<p>![image-20201103101449213](/Users/liusongyan/Library/Application Support/typora-user-images/image-20201103101449213.png)</p>
+<ul>
+<li><p>2018年<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1704.04530.pdf">文献2</a>提出压缩文档的时候，除了使用文档本身的内容，还可以使用一些边缘信息如下：decoder 在解码的时候，输入包含了当前句子的sentence-embedding 还包括了side -information</p>
+<ul>
+<li>title</li>
+<li>Image caption</li>
+<li>Table caption</li>
+</ul>
+<p>![image-20201103103021505](/Users/liusongyan/Library/Application Support/typora-user-images/image-20201103103021505.png)</p>
+<blockquote>
+<p>大小写/是否缩写/char 的位置句子的位置/是否存在同义词/近义词 等统计特征引进来会不会有意义</p>
+</blockquote>
+</li>
+<li><p>2018年<a target="_blank" rel="noopener" href="https://www.aclweb.org/anthology/P18-1014.pdf">文献3</a>指出抽取式摘要不能仅仅关注句子的重要程度，还需要关注句子中关键词的重要程度，作者认为这些关键词的往往是文档的核心实体，包含关键词的句子被选择为摘要的概率总是大于不包含关键词的句子，模型中存在两个decoder，</p>
+<ul>
+<li>一个是词级别的解码器每一步的输出都是词表进行筛选，代表每个词被选择的概率，</li>
+<li>另一个是句子级别的解码器，代表每个句子被选择的概率。</li>
+<li>两个解码器同步解码，在第t个时间步决定模型选择词解码器的输出还是句子解码器的输出</li>
+<li>在预测的时候，每个句子被选择为摘要的概率等于该句子被预测的概率和其所包含的所有词被预测的概率和，如果一个词被预测，那么用概率最大值作为替代</li>
+</ul>
+<p>![image-20201103103050715](/Users/liusongyan/Library/Application Support/typora-user-images/image-20201103103050715.png)</p>
+</li>
+<li><p>除了RNN做解码器，还有一类常用的解码器（MLP+sigmoid）在解码的时候对每个句子单独进行分类，其他句子是否已经被选择为摘要对当前句子的分类没有影响。<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1611.04230.pdf">文献4</a>提出统合5种信息的分类器：</p>
+<p>$h_j = tanh(W_{st}[h_j^f,h_j^b]+b_{st})$</p>
+<p>$s_j = \sum_{i=1}^{j-1}{h_iP(y_i=1|h_i,s_i,d)}$ </p>
+<p>$P(y_i=1|h_j,s_j,d) = \sigma(W_ch_j+h_j^TW_sd-h_j^TW_rtanh(s_j)+W_{ap}p_j^a+W_{rp}p_j^r+b)$</p>
+<ul>
+<li>Content：$W_chj$代表第j个句子语义的影响，$h_j$是第j个句子的表示</li>
+<li>Salience：$h_j^TW_sd$代表第j句在文档中重要度的影响，即信息性，d是文档的表示doc-embedding，是由所有句子的embedding 进行 average-reduction 然后过tanh 激活函数得到的</li>
+<li>Novelty：$h_j^TW_rtanh(s_j)$ 代表第j句相对目前摘要冗余度的影响，$s_j$是第j步时当前摘要的表示，这是一个惩罚项，即冗余度高的句子加入摘要的概率更低</li>
+<li>Absolute-position： $W_{ap}p_j^a$ 代表第j句在文档中绝对位置的影响</li>
+<li>Relative-position：$W_{rp}p_j^r$ 代表第j句在文档中的相对位置的影响</li>
+</ul>
+</li>
+<li><p>基于上面文献的想法，<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1804.07036.pdf">文献5</a>提出更简单的分类公式：用RNN解码的思想迭代预测标签值</p>
+<p>$P(y_t=1|X,y_{1:t-1})=\sigma(W_2tanh(W_1[h_t,g_{t-1},d]+b_1)+b_2)$</p>
+<p>$g_t = g_{t-1}+y_t \times tanh(W_gh_t+b_g)$</p>
+<blockquote>
+<p>UNILM 默默举个爪</p>
+</blockquote>
+</li>
+<li><p>Encoder编码器没什么好说的，都是CNN/RNN 改编码方式，19年以后都是预训练模型编码了，</p>
+<blockquote>
+<p>需要关注的点是GCN进行结合的方式，</p>
+</blockquote>
+</li>
+<li><p>抽取式摘要任务通常被视为sequence labeling task 因此传统的抽取式摘要模型都是用decoder 逐句对待压缩文档中的每个句子进行二分类，但是这样的模型在解码的过程中，重要的信息分布在文档或者文档偏后的位置，因此<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1807.02305.pdf">文献6</a>提出不再将摘要任务视为序列生成任务，而是视为最有选择任务(global select task ), 具体来讲模型仍然适用RNN的方式进行循环解码，但是在每一步解码的时候，<strong>并非对单个句子进行分类，而是计算在尚未被选择为摘要的句子上的概率分布，代表每个句子被选择为摘要的概率.</strong>.</p>
+</li>
+</ul>
+<blockquote>
+<p>没懂..</p>
+</blockquote>
+<ul>
+<li>LOSS 改进方面，传统摘要抽取的loss 是 maximum likelihood estimation (MLE) ,最大化每个句子的gold labels 的概率，这种损失函数等价于Cross -Entropy LOSS，后续loss 的改进方向偏向RL loss（我觉得略扯）</li>
+</ul>
+<blockquote>
+<p>Ranking loss 可以继续做看样子</p>
+</blockquote>
+<ul>
+<li>预训练模型方面比较突出的工作一个是**<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1903.10318.pdf">BERTSUM文献7</a>**模型，个人觉得主要是就是把BERT当encoder 然后对每个句向量做二分类</li>
+</ul>
+<blockquote>
+<p>这里面有两个问题，BERT只是说对句子做编码，那么对于文档/段落级别的编码论文中是否有相关的工作，</p>
+<p>超出512文档，论文中是怎么做处理的</p>
+</blockquote>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1910.14142.pdf">文献8</a> 和 <a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2004.12393.pdf">文献9</a> 是BERTSUM的基础上对特征抽取部分做了较大的改进(加了图神经网络)，其中，DiscoBert将BERT的特征抽取与图卷积神经网络有效的结合在一起。但是在图网络构建的过程中，采用的是RST共指关系树的方式构造了对应的图结构，相比而言HeterSumGraph 利用异构图神经网络尝试引入更多的节点信息表示来更好的建模句子之间的关系。</li>
+</ul>
+<p>![image-20201103140429559](/Users/liusongyan/Library/Application Support/typora-user-images/image-20201103140429559.png)</p>
+<ul>
+<li><p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1905.02450.pdf">文献10</a>思路简单，操作复杂，尝试将摘要抽取任务等价于文本匹配任务，实际上是用一种带有剪枝行为的贪心搜索。</p>
+<blockquote>
+<p>个人认为这个任务的核心工作在于candidates的构建上，因为这个构建方式决定了解码搜索空间的范围</p>
+<p>因此如果能够找出更标准的抽取式候选集的方式，以及替换掉rouge的方式。应该可以达到新的上限</p>
+</blockquote>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2010.07886">文献11</a>看不太懂，不过好像是从真实性和显著性进行建模，似乎很有道理的样子.。。</p>
+</li>
+</ul>
+<h2 id="其他问题"><a href="#其他问题" class="headerlink" title="其他问题"></a>其他问题</h2><ul>
+<li>抽取式摘要，ground truth 长度有限制嘛，固定三句话？</li>
+<li>什么是 trigram blocking strategy</li>
+</ul>
+<h2 id="优化方向"><a href="#优化方向" class="headerlink" title="优化方向"></a>优化方向</h2><ul>
+<li>文本建模方面：<ul>
+<li>512句长问题<ul>
+<li>UNILM</li>
+</ul>
+</li>
+<li>引入更多统计/知识特征<ul>
+<li>大小写/专有名词/词性/位置信息/同义词等</li>
+<li>textRank 关键词信息</li>
+</ul>
+</li>
+<li>图神经网络结合<ul>
+<li>BERT+ GCN /利用外部知识构建图神经网络</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>特征交互<ul>
+<li>新版Transformer  -&gt;<strong>Synthesizer</strong></li>
+<li>FusionNet 字符/词/句子混合交互</li>
+</ul>
+</li>
+<li>训练任务/LOSS优化<ul>
+<li>Sequence labeling task 优化（global select task任务）</li>
+<li>序列生成任务</li>
+<li>ranking loss/ RL loss / MLE loss</li>
+</ul>
+</li>
+</ul>
+<h2 id="需要做的事情"><a href="#需要做的事情" class="headerlink" title="需要做的事情"></a>需要做的事情</h2><ul>
+<li><input disabled="" type="checkbox"> </li>
+<li><input disabled="" type="checkbox"> 详细了解一下RL loss 、Ranking Loss 的收益</li>
+<li><input disabled="" type="checkbox"> 关键词指导抽取</li>
+<li><input disabled="" type="checkbox"> 序列标注给模型学<ul>
+<li><input disabled="" type="checkbox"> 实体级别主谓宾</li>
+<li><input disabled="" type="checkbox"> ranking loss</li>
+</ul>
+</li>
+<li><input disabled="" type="checkbox"> Baseline 跑通</li>
+<li><input disabled="" type="checkbox"> CLS 不能很好的表征这个句子</li>
+<li><input disabled="" type="checkbox"> MoverScore 只考虑2元组和L元组</li>
+</ul>
+<h3 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h3><ol>
+<li>Neural Summarization by Extracting Sentences and Words</li>
+<li>Neural Extractive Summarization with Side Information</li>
+<li>Extractive Summarization with SWAP-NET: Sentences and Words from Alternating Pointer Networks</li>
+<li>SummaRuNNer: A Recurrent Neural Network based Sequence Model for Extractive Summarization of Documents</li>
+<li>Learning to Extract Coherent Summary via Deep Reinforcement Learning</li>
+<li>Neural Document Summarization by Jointly Learning to Score and Select Sentences</li>
+<li>Fine-tune BERT for Extractive Summarization</li>
+<li>Discourse-Aware Neural Extractive Text Summarization</li>
+<li>Heterogeneous Graph Neural Networks for Extractive Document Summarization</li>
+<li>Extractive Summarization as Text Matching</li>
+<li>Compressive Summarization with Plausibility and Salience Modelin</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2021/06/23/%E6%8A%BD%E5%8F%96%E5%BC%8F%E6%91%98%E8%A6%81%E6%A8%A1%E5%9E%8B/" data-id="ckq8zlyy300167ctia8w36h3t" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2021/06/23/%E7%BF%BB%E5%A2%99%E6%95%99%E7%A8%8B/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2021/06/23/%E5%8F%8D%E8%BD%AC%E4%BA%8C%E5%8F%89%E6%A0%91/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2021 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
