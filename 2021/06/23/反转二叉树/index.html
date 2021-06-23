@@ -14,11 +14,11 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="">
+  <meta name="description" content="DFS方法翻转二叉树">
   <meta name="author" content="好奇的小will">
   <meta name="keywords" content="">
   
-  <title>Hexo</title>
+  <title>反转二叉树 - Hexo</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -158,12 +158,12 @@
 </nav>
 
     <div class="banner" id="banner" parallax=true
-         style="background: url('/img/default.png') no-repeat center center;
+         style="background: url('/img/post_banner.jpg') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="">
+            <span class="h2" id="subtitle" title="反转二叉树">
               
             </span>
 
@@ -190,7 +190,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      53 字
+      48 字
     </span>
   
 
@@ -238,16 +238,16 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none"></h1>
+            <h1 style="display: none">反转二叉树</h1>
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年6月23日 上午
+                  本文最后更新于：2021年6月23日 下午
                 
               </p>
             
             <div class="markdown-body">
-              <h2 id="反转二叉树"><a href="#反转二叉树" class="headerlink" title="反转二叉树"></a>反转二叉树</h2><p>题目链接：<a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/37/">https://www.acwing.com/problem/content/37/</a></p>
+              <p>题目链接：<a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/37/">https://www.acwing.com/problem/content/37/</a></p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> &#123;</span><br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">mirror</span><span class="hljs-params">(TreeNode* root)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span>(!root) <span class="hljs-keyword">return</span>;<br>        TreeNode *tmp = root-&gt;left;<br>        root-&gt;left = root-&gt;right;<br>        root-&gt;right = tmp;<br>        <span class="hljs-built_in">mirror</span>(root-&gt;left);<br>        <span class="hljs-built_in">mirror</span>(root-&gt;right);<br>        <br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
 
 
@@ -256,6 +256,13 @@
             <div>
               <div class="post-metas mb-3">
                 
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%88%B7%E9%A2%98%EF%BC%8Cacwing/">刷题，acwing</a>
+                    
+                  </div>
                 
               </div>
               
@@ -270,9 +277,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/06/23/%E6%8A%BD%E5%8F%96%E5%BC%8F%E6%91%98%E8%A6%81%E6%A8%A1%E5%9E%8B/">
+                      <a href="/2021/06/23/%E7%BF%BB%E5%A2%99%E6%95%99%E7%A8%8B/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile"></span>
+                        <span class="hidden-mobile">翻墙教程</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
